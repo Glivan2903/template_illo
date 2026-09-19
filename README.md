@@ -30,8 +30,8 @@ Copie `.env.example` para `.env`. A partir desta versão, o `.env` guarda **só 
 
 | Variável | Para quê |
 | --- | --- |
-| `ADMIN_USER` / `ADMIN_PASSWORD_HASH` | Login do `/admin` (conteúdo do site). Gere o hash com `node scripts/gerar-hash-senha.mjs "sua-senha"` |
-| `SUPERADMIN_USER` / `SUPERADMIN_PASSWORD_HASH` | Login do `/superadmin` (módulos e integrações). Mesmo script acima |
+| `ADMIN_USER` / `ADMIN_PASSWORD` | Login do `/admin` (conteúdo do site). Senha em texto puro |
+| `SUPERADMIN_USER` / `SUPERADMIN_PASSWORD` | Login do `/superadmin` (módulos e integrações). Senha em texto puro |
 | `SESSION_SECRET` | Assina o cookie de sessão do login. Gere com `openssl rand -hex 32` |
 | `SETTINGS_ENC_KEY` | Criptografa em repouso as configurações sensíveis do superadmin (URLs de API). Gere com `openssl rand -hex 32` |
 | `OPENAI_API_KEY` | Chave da OpenAI usada pelo chat com IA (Sofia, `/chat`). Sem ela, `FEATURE_CHAT` fica indisponível |

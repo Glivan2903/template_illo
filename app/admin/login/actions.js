@@ -2,7 +2,6 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifyPassword } from '../../../lib/auth/password';
 import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from '../../../lib/auth/session';
 
 export async function login(formData) {
@@ -11,9 +10,9 @@ export async function login(formData) {
 
   let role = null;
   if (usuario && process.env.SUPERADMIN_USER && usuario === process.env.SUPERADMIN_USER) {
-    if (verifyPassword(senha, process.env.SUPERADMIN_PASSWORD_HASH)) role = 'superadmin';
+    if (senha && senha === process.env.SUPERADMIN_PASSWORD) role = 'superadmin';
   } else if (usuario && process.env.ADMIN_USER && usuario === process.env.ADMIN_USER) {
-    if (verifyPassword(senha, process.env.ADMIN_PASSWORD_HASH)) role = 'admin';
+    if (senha && senha === process.env.ADMIN_PASSWORD) role = 'admin';
   }
 
   if (!role) {
