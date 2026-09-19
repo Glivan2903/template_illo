@@ -26,6 +26,7 @@ export async function updateModulos(formData) {
       areaCliente: checked(formData, 'areaCliente'),
       centralAgendamento: checked(formData, 'centralAgendamento'),
       chat: checked(formData, 'chat'),
+      chatFlutuante: checked(formData, 'chatFlutuante'),
     },
   });
 

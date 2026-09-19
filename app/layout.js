@@ -5,6 +5,7 @@ import { getFeatureFlags } from "../lib/featureFlags";
 import { SiteConfigProvider } from "../lib/siteConfigContext";
 import BrandVars from "../lib/BrandVars";
 import EditableOverlay from "../lib/EditableOverlay";
+import ChatWidget from "../components/chat/ChatWidget";
 
 const figtree = Figtree({
   variable: "--font-sans",
@@ -52,6 +53,7 @@ export default async function RootLayout({ children }) {
           <BrandVars />
           <EditableOverlay />
           {children}
+          {featureFlags.FEATURE_CHAT_FLUTUANTE && <ChatWidget />}
         </SiteConfigProvider>
       </body>
     </html>

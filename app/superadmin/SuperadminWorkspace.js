@@ -23,6 +23,7 @@ const FLAG_LABELS = [
   { key: 'areaCliente', label: 'Área do Cliente (/area-cliente)' },
   { key: 'centralAgendamento', label: 'Central de Agendamento (/central-agendamento)' },
   { key: 'chat', label: 'Chat com IA — Sofia (/chat)' },
+  { key: 'chatFlutuante', label: 'Chat flutuante — Sofia (widget em todas as páginas)' },
 ];
 
 export default function SuperadminWorkspace({ settings, storageStatus, logoutAction, actions }) {
