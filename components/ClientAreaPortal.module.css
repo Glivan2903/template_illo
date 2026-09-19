@@ -1,0 +1,585 @@
+.contentCard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .contentCard {
+    padding: 2.5rem;
+  }
+}
+
+.loginContainer {
+  max-width: 420px;
+  margin: 0.75rem auto;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .loginContainer {
+    margin: 3rem auto;
+  }
+}
+
+.loginIcon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(43, 122, 62, 0.1);
+  color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.loginForm {
+  text-align: left;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.textInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.textInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(43, 122, 62, 0.15);
+  outline: none;
+}
+
+/* Dashboard styles */
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.welcomeText {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.welcomeName {
+  color: var(--green-700);
+}
+
+.welcomeSub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.logoutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #f3f4f6;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.emptyIcon {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+.emptyState h3 {
+  font-size: 1.25rem;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.emptyState p {
+  color: var(--text-muted);
+}
+
+/* Appointments grid/list */
+.appointmentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.appointmentCard {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appointmentCard:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.cardCanceled {
+  opacity: 0.7;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.cardBadgeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badgeUpcoming {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badgeCanceled {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badgeCompleted {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.unidadeBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: var(--primary-pale);
+  color: var(--primary-color);
+}
+
+.cardDateText {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.cardInfoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .cardInfoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.infoLabel {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.infoValue {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.cardActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.actionBtnReagendar,
+.actionBtnCancelar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.actionBtnReagendar {
+  background-color: rgba(43, 122, 62, 0.1);
+  color: var(--primary-color);
+}
+
+.actionBtnReagendar:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.actionBtnCancelar {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.actionBtnCancelar:hover {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Modal styling */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 550px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modalHeader h3 {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.closeModalBtn {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.25rem;
+}
+
+.closeModalBtn:hover {
+  color: var(--foreground);
+}
+
+.modalBody {
+  padding: 1.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modalLoader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.spinner {
+  margin-right: 0.5rem;
+}
+
+.modalLoader svg {
+  margin-bottom: 1rem;
+}
+
+.currentSummary {
+  background-color: var(--background);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.currentSummary p {
+  margin-bottom: 0.25rem;
+}
+
+.currentSummary p:last-child {
+  margin-bottom: 0;
+}
+
+.stepTitle {
+  font-size: 1rem;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.modalProfsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modalProfCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+
+.modalProfCard:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(43, 122, 62, 0.05);
+}
+
+.modalProfCardSelected {
+  border-color: var(--primary-color);
+  background-color: rgba(43, 122, 62, 0.1);
+  color: var(--primary-color);
+}
+
+.modalBackBtn {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.modalBackBtn:hover {
+  color: var(--primary-color);
+}
+
+/* Date Picker in Modal */
+.modalDateGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .modalDateGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.modalDateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.modalDateCard:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(43, 122, 62, 0.05);
+}
+
+.modalDateCardSelected {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.modalDateCardSelected span {
+  color: white !important;
+}
+
+.modalDateDayName {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.modalDateDayNumber {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0.15rem 0;
+}
+
+.modalDateMonthName {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.modalDateVagas {
+  font-size: 0.65rem;
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+
+.noDatesMessage {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 0;
+}
+
+/* Custom Dialog modal styles */
+.dialogContainer {
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.dialogHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dialogHeader h3 {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.dialogBody {
+  padding: 1.5rem;
+}
+
+.dialogMessage {
+  font-size: 0.95rem;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+
+.dialogFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--background);
+  border-top: 1px solid var(--border-color);
+}
+
+.dialogBtnSecondary {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.dialogBtnSecondary:hover {
+  background-color: #f3f4f6;
+  color: var(--foreground);
+}

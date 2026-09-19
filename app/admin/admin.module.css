@@ -1,0 +1,247 @@
+.card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--line, #e2e5e1);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm, 0 4px 16px rgba(0, 0, 0, 0.06));
+  padding: 1rem;
+}
+
+.cardTitle {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+}
+
+.cardHint {
+  margin: 0 0 0.9rem;
+  color: var(--text-muted, #6b7280);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* Sempre uma coluna: o painel de edição do /admin é estreito de propósito
+   (fica ao lado do preview, ver .editorPane em workspace.module.css), então
+   dois campos lado a lado quase sempre ficam apertados demais e vazam. */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  min-width: 0;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 3.6rem;
+}
+
+.fieldset {
+  border: 1px dashed var(--line, #e2e5e1);
+  border-radius: 10px;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.fieldsetTitle {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.colorSwatch {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  flex-shrink: 0;
+}
+
+/* Especificidade extra (.colorRow .colorPicker) de propósito: precisa
+   vencer ".field input" (que força width:100% nos inputs normais) sem
+   precisar de !important — sem isso, o seletor nativo de cor esticava para
+   ~250px e vazava do painel. */
+.colorRow .colorPicker {
+  width: 34px;
+  height: 34px;
+  padding: 2px;
+  border: 1px solid var(--line, #e2e5e1);
+  border-radius: 7px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.colorHexInput {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.45rem 0.6rem;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  font-family: monospace;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.currentImage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--text-muted, #6b7280);
+  flex-wrap: wrap;
+}
+
+.currentImage img {
+  max-height: 40px;
+  max-width: 100px;
+  object-fit: contain;
+  border: 1px solid var(--line, #e2e5e1);
+  border-radius: 6px;
+  background: #fff;
+  padding: 4px;
+}
+
+/* Cada especialidade é um mini-card empilhado (ícone + seletor + remover
+   numa linha, depois nome e descrição em campos de largura cheia) — cabe
+   inteiro dentro do painel estreito do /admin, sem cortar nem vazar. */
+.specRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.55rem;
+  border: 1px solid var(--line, #e2e5e1);
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.specRowHead {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.specIconPreview {
+  color: var(--brand-primary);
+  flex-shrink: 0;
+}
+
+.specInput {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0.42rem 0.6rem;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  font-size: 0.82rem;
+}
+
+.specSelect {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.42rem 0.4rem;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  font-size: 0.78rem;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  background: #fff;
+  color: #b42318;
+  cursor: pointer;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  border-radius: 7px;
+  border: 1px solid var(--line, #e2e5e1);
+  background: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.statusBox {
+  font-size: 0.85rem;
+  color: var(--text-muted, #6b7280);
+  background: #f6f7f5;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.warningBox {
+  font-size: 0.85rem;
+  color: #92400e;
+  background: #fef3c7;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Realce temporário quando um campo é aberto a partir de um clique no
+   preview (ver onSelectField em AdminWorkspace.js). */
+.fieldHighlight {
+  outline: 2px solid var(--brand-primary, #2b7a3e) !important;
+  outline-offset: 1px;
+  animation: fieldHighlightFade 1.4s ease-out;
+}
+
+@keyframes fieldHighlightFade {
+  0% { background-color: rgba(43, 122, 62, 0.12); }
+  100% { background-color: transparent; }
+}
+
+.maskedValue {
+  font-family: monospace;
+  color: var(--text-muted, #6b7280);
+  font-size: 0.85rem;
+}

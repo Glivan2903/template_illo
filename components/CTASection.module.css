@@ -1,0 +1,43 @@
+.band {
+  background: var(--green-900);
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+}
+
+.title {
+  color: var(--paper);
+  font-size: var(--text-h2);
+  margin-bottom: 0.5rem;
+}
+
+.text {
+  color: rgba(251, 250, 247, 0.8);
+  line-height: 1.65;
+  max-width: 540px;
+}
+
+.cta {
+  flex-shrink: 0;
+  background-color: var(--paper);
+  color: var(--green-900);
+}
+
+.cta:hover:not(:disabled) {
+  background-color: #ffffff;
+  color: var(--green-900);
+}

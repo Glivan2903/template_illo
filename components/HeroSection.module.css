@@ -1,0 +1,90 @@
+.hero {
+  position: relative;
+  padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(3.5rem, 8vw, 6rem);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+  }
+}
+
+.heroText {
+  max-width: 620px;
+}
+
+.eyebrowReveal {
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: var(--text-hero);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--green-900);
+  margin-bottom: 1.5rem;
+}
+
+/* Wrapper de linha com overflow escondido para a entrada por linha (GSAP) */
+.titleLine {
+  display: block;
+  overflow: hidden;
+}
+
+.titleLine > span {
+  display: block;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  margin-bottom: 2.25rem;
+  line-height: 1.65;
+  max-width: 500px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.photoWrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 460px;
+  object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+  .photo {
+    max-height: 300px;
+  }
+}
+
+.ecgWrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  pointer-events: none;
+  opacity: 0.9;
+}

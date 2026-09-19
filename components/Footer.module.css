@@ -1,0 +1,155 @@
+.footer {
+  background: var(--green-900);
+  color: rgba(251, 250, 247, 0.85);
+  margin-top: auto;
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 1.2fr 0.8fr 1.2fr;
+    gap: 3rem;
+  }
+}
+
+.logoImg {
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 1.25rem;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.description {
+  font-size: 0.925rem;
+  line-height: 1.65;
+  max-width: 300px;
+  margin-bottom: 1.5rem;
+}
+
+.socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(251, 250, 247, 0.25);
+  border-radius: var(--radius-md);
+  color: rgba(251, 250, 247, 0.85);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.socialIcon:hover {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+.heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--paper);
+  margin-bottom: 1.25rem;
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  font-size: 0.925rem;
+}
+
+.linksList a {
+  color: rgba(251, 250, 247, 0.85);
+  text-decoration: none;
+}
+
+.linksList a:hover {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.contactItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.contactStrong {
+  color: var(--paper);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: rgba(251, 250, 247, 0.6);
+}
+
+.contactPhone {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: rgba(251, 250, 247, 0.8);
+}
+
+.hoursText {
+  font-size: 0.85rem;
+  color: rgba(251, 250, 247, 0.7);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-top: 1px solid rgba(251, 250, 247, 0.15);
+}
+
+.bottomText {
+  font-size: 0.825rem;
+  color: rgba(251, 250, 247, 0.6);
+}
+
+.whatsappLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.whatsappLink:hover {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
