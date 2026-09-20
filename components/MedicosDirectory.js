@@ -14,15 +14,15 @@ function nomeUnidade(unidadeId) {
 // Monta a URL de /agendamento já filtrada pro profissional (pula direto pro
 // passo 3 do wizard — ver initialCentro/initialProfissional em
 // BookingWizard e a leitura desses parâmetros em app/agendamento/page.js).
-// Usa a primeira especialidade dele: um profissional pode atender em mais
-// de um centro/especialidade, mas o link do card não tem como escolher
-// qual — quem quiser outra opção segue pelo fluxo genérico de /agendamento.
+// `centroEscolhido` (especialidade/centro) já vem resolvido de
+// app/medicos/page.js — o admin escolhe qual usar, pelo /admin, quando o
+// profissional atende em mais de uma (ver ProfissionaisLinksManager).
 function linkAgendamentoDoProfissional(prof) {
-  const primeira = prof.especialidades[0];
+  const centro = prof.centroEscolhido;
   const params = new URLSearchParams({
     unidade: prof.unidade,
-    cen: primeira.cenCodigo,
-    cenNome: primeira.especialidade,
+    cen: centro.cenCodigo,
+    cenNome: centro.especialidade,
     prof: prof.profCodigo,
     cons: prof.consCodigo || '',
     uf: prof.profEstadoCons || '',

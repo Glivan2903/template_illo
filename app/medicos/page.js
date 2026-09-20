@@ -25,10 +25,17 @@ export default async function Medicos() {
   const { TEXTOS } = await getSiteConfig();
   const [profissionaisBrutos, content] = await Promise.all([getProfissionaisUnificados(), getContent()]);
   const desativados = new Set(content.profissionaisLinksDesativados || []);
-  const profissionais = profissionaisBrutos.map((prof) => ({
-    ...prof,
-    linkAtivo: !desativados.has(identidadeProfissional(prof)),
-  }));
+  const centroEscolhido = content.profissionaisLinkCentro || {};
+  const profissionais = profissionaisBrutos.map((prof) => {
+    const identidade = identidadeProfissional(prof);
+    const cenCodigoEscolhido = centroEscolhido[identidade] || prof.especialidades[0].cenCodigo;
+    return {
+      ...prof,
+      linkAtivo: !desativados.has(identidade),
+      centroEscolhido:
+        prof.especialidades.find((e) => e.cenCodigo === cenCodigoEscolhido) || prof.especialidades[0],
+    };
+  });
 
   return (
     <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>

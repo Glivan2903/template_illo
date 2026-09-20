@@ -14,8 +14,15 @@ import fieldStyles from './admin.module.css';
 const CORES_SAVE_DEBOUNCE_MS = 600;
 
 export default function AdminWorkspace({ initialContent, featureFlags, logoutAction, actions }) {
-  const { updateField, updateCores, addEspecialidade, removeEspecialidade, updateEspecialidadeField, toggleLinkProfissional } =
-    actions;
+  const {
+    updateField,
+    updateCores,
+    addEspecialidade,
+    removeEspecialidade,
+    updateEspecialidadeField,
+    toggleLinkProfissional,
+    updateLinkProfissionalCentro,
+  } = actions;
   const [draft, setDraft] = useState(initialContent);
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -202,7 +209,7 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
 
         {activeSection === 'profissionais' ? (
           <div className={styles.editorPaneFull}>
-            <ProfissionaisLinksManager toggleAction={toggleLinkProfissional} />
+            <ProfissionaisLinksManager toggleAction={toggleLinkProfissional} centroAction={updateLinkProfissionalCentro} />
           </div>
         ) : (
           <PreviewFrame

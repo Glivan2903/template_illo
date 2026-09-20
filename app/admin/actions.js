@@ -46,6 +46,16 @@ export async function toggleLinkProfissional(identidade, ativo) {
   revalidatePath('/', 'layout');
 }
 
+// Escolhe qual especialidade/centro o link do profissional usa, pra quem
+// atende em mais de uma (o link só pode apontar pra uma por vez).
+export async function updateLinkProfissionalCentro(identidade, cenCodigo) {
+  await requireRole(['admin']);
+  const content = await getContent();
+  const atual = content.profissionaisLinkCentro || {};
+  await saveContent({ profissionaisLinkCentro: { ...atual, [identidade]: cenCodigo } });
+  revalidatePath('/', 'layout');
+}
+
 export async function addEspecialidade() {
   await requireRole(['admin']);
   const content = await getContent();

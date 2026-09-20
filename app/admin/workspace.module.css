@@ -265,6 +265,87 @@
   font-size: 0.9rem;
 }
 
+/* Card da página "Profissionais" (ver ProfissionaisLinksManager) — precisa
+   de mais linhas que .moduleCard (nome, especialidade/centro escolhido,
+   link + copiar, ativo/inativo), por isso empilha em coluna. */
+.profCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1.1rem;
+  border: 1px solid var(--line, #e2e5e1);
+  background: #fff;
+  font-size: 0.9rem;
+}
+
+.profHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.profNome {
+  display: block;
+  font-weight: 700;
+}
+
+.profSelect {
+  margin-top: 0.3rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--line, #e2e5e1);
+  background: var(--bg-muted, #f6f7f5);
+  font-size: 0.76rem;
+}
+
+.profEspecialidade {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.76rem;
+  color: var(--text-muted, #6b7280);
+}
+
+.profLinkRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profLinkCode {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.6rem;
+  background: var(--bg-muted, #f6f7f5);
+  font-size: 0.72rem;
+  color: var(--text-muted, #6b7280);
+}
+
+.profCopyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.6rem;
+  border: 1px solid var(--line, #e2e5e1);
+  background: #fff;
+  color: var(--text-muted, #6b7280);
+  cursor: pointer;
+}
+
+.profCopyBtn:hover {
+  color: var(--brand-primary, #2b7a3e);
+  border-color: color-mix(in srgb, var(--brand-primary, #2b7a3e) 30%, var(--line, #e2e5e1));
+}
+
 .switch {
   position: relative;
   display: inline-block;

@@ -7,6 +7,7 @@ import {
   removeEspecialidade,
   updateEspecialidadeField,
   toggleLinkProfissional,
+  updateLinkProfissionalCentro,
 } from './actions';
 import AdminWorkspace from './AdminWorkspace';
 
@@ -26,6 +27,7 @@ export default async function AdminPage() {
         removeEspecialidade,
         updateEspecialidadeField,
         toggleLinkProfissional,
+        updateLinkProfissionalCentro,
       }}
     />
   );
