@@ -33,6 +33,19 @@ export async function updateCores(colorPrimary, colorSecondary) {
   revalidatePath('/', 'layout');
 }
 
+// Página "Profissionais" do sidebar — liga/desliga o link direto de
+// agendamento por profissional individualmente (ver
+// identidadeProfissional em lib/profissionais.js e
+// app/api/admin/profissionais/route.js, que monta a lista pro cliente).
+export async function toggleLinkProfissional(identidade, ativo) {
+  await requireRole(['admin']);
+  const content = await getContent();
+  const atual = content.profissionaisLinksDesativados || [];
+  const proximo = ativo ? atual.filter((id) => id !== identidade) : [...new Set([...atual, identidade])];
+  await saveContent({ profissionaisLinksDesativados: proximo });
+  revalidatePath('/', 'layout');
+}
+
 export async function addEspecialidade() {
   await requireRole(['admin']);
   const content = await getContent();

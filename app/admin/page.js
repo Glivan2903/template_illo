@@ -1,6 +1,13 @@
 import { getContent, getSettings } from '../../lib/store';
 import { logout } from './login/actions';
-import { updateField, updateCores, addEspecialidade, removeEspecialidade, updateEspecialidadeField } from './actions';
+import {
+  updateField,
+  updateCores,
+  addEspecialidade,
+  removeEspecialidade,
+  updateEspecialidadeField,
+  toggleLinkProfissional,
+} from './actions';
 import AdminWorkspace from './AdminWorkspace';
 
 export default async function AdminPage() {
@@ -18,6 +25,7 @@ export default async function AdminPage() {
         addEspecialidade,
         removeEspecialidade,
         updateEspecialidadeField,
+        toggleLinkProfissional,
       }}
     />
   );

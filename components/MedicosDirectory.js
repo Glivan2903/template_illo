@@ -84,7 +84,7 @@ export default function MedicosDirectory({ profissionais, linkPorProfissional })
         {filtrados.map((prof) => (
           <Link
             key={prof.slug}
-            href={linkPorProfissional ? linkAgendamentoDoProfissional(prof) : '/agendamento'}
+            href={linkPorProfissional && prof.linkAtivo ? linkAgendamentoDoProfissional(prof) : '/agendamento'}
             className={styles.card}
             onMouseEnter={(e) => lift(e, true)}
             onMouseLeave={(e) => lift(e, false)}

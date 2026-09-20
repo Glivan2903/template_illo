@@ -1,11 +1,12 @@
 'use client';
 
 import { useMemo, useRef, useState } from 'react';
-import { Palette, Menu, Check, Loader2 } from 'lucide-react';
+import { Palette, Users, Menu, Check, Loader2 } from 'lucide-react';
 import ColorField from './ColorField';
 import Sidebar from './Sidebar';
 import LogoutButton from './LogoutButton';
 import PreviewFrame from './PreviewFrame';
+import ProfissionaisLinksManager from './ProfissionaisLinksManager';
 import { mapContentToSiteConfig } from '../../lib/mapSiteConfig';
 import styles from './workspace.module.css';
 import fieldStyles from './admin.module.css';
@@ -13,7 +14,8 @@ import fieldStyles from './admin.module.css';
 const CORES_SAVE_DEBOUNCE_MS = 600;
 
 export default function AdminWorkspace({ initialContent, featureFlags, logoutAction, actions }) {
-  const { updateField, updateCores, addEspecialidade, removeEspecialidade, updateEspecialidadeField } = actions;
+  const { updateField, updateCores, addEspecialidade, removeEspecialidade, updateEspecialidadeField, toggleLinkProfissional } =
+    actions;
   const [draft, setDraft] = useState(initialContent);
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -122,9 +124,14 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
 
   const brand = draft.brand || {};
 
-  // Só "Cores" existe hoje — expande embaixo do próprio botão, dentro do
-  // sidebar (ver Sidebar.js), em vez de abrir um painel ao lado do preview:
-  // assim o preview sempre usa toda a largura disponível.
+  // "Cores" expande embaixo do próprio botão, dentro do sidebar (ver
+  // Sidebar.js), em vez de abrir um painel ao lado do preview. "Profissionais"
+  // não cabe nesse formato (lista vinda do ClinVida, pode ser longa) — ao
+  // ficar ativa, substitui o preview inteiro (ver corpo do componente).
+  // Só aparece quando o /superadmin liga o módulo pra essa empresa (mesma
+  // regra de app/medicos/page.js).
+  const mostrarLinksProfissionais = featureFlags?.profissionais !== false && featureFlags?.agendamentoPorProfissional !== false;
+
   const sections = [
     {
       key: 'cores',
@@ -147,6 +154,7 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
         </div>
       ),
     },
+    ...(mostrarLinksProfissionais ? [{ key: 'profissionais', label: 'Profissionais', icon: Users }] : []),
   ];
 
   return (
@@ -192,12 +200,18 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
           footer={<LogoutButton action={logoutAction} className={styles.secondaryBtn} />}
         />
 
-        <PreviewFrame
-          config={previewConfig}
-          onFieldEdit={handleFieldEdit}
-          onEspecialidadeAdd={handleEspecialidadeAdd}
-          onEspecialidadeRemove={handleEspecialidadeRemove}
-        />
+        {activeSection === 'profissionais' ? (
+          <div className={styles.editorPaneFull}>
+            <ProfissionaisLinksManager toggleAction={toggleLinkProfissional} />
+          </div>
+        ) : (
+          <PreviewFrame
+            config={previewConfig}
+            onFieldEdit={handleFieldEdit}
+            onEspecialidadeAdd={handleEspecialidadeAdd}
+            onEspecialidadeRemove={handleEspecialidadeRemove}
+          />
+        )}
       </div>
     </div>
   );

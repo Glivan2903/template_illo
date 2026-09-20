@@ -2,10 +2,11 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MedicosDirectory from "../../components/MedicosDirectory";
-import { getProfissionaisUnificados } from "../../lib/profissionais";
+import { getProfissionaisUnificados, identidadeProfissional } from "../../lib/profissionais";
 import { getFeatureFlags } from "../../lib/featureFlags";
 import { getUnidadesFooterProps } from "../../lib/unidades";
 import { getSiteConfig } from "../../lib/config";
+import { getContent } from "../../lib/store";
 
 export const dynamic = 'force-dynamic';
 
@@ -22,7 +23,12 @@ export default async function Medicos() {
   if (!FEATURE_PROFISSIONAIS) notFound();
 
   const { TEXTOS } = await getSiteConfig();
-  const profissionais = await getProfissionaisUnificados();
+  const [profissionaisBrutos, content] = await Promise.all([getProfissionaisUnificados(), getContent()]);
+  const desativados = new Set(content.profissionaisLinksDesativados || []);
+  const profissionais = profissionaisBrutos.map((prof) => ({
+    ...prof,
+    linkAtivo: !desativados.has(identidadeProfissional(prof)),
+  }));
 
   return (
     <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
