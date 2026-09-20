@@ -1,0 +1,24 @@
+# Proxy reverso com HTTPS automático (Let's Encrypt) para qualquer host que
+# pertença à plataforma — domínio raiz, subdomínio de empresa
+# (<slug>.PLATFORM_DOMAIN) ou domínio próprio configurado no /superadmin.
+# Como os hosts são dinâmicos (empresas são criadas depois do deploy, sem
+# redeploy), o certificado é emitido "on demand" na primeira visita a cada
+# host — o endpoint `ask` confere no app se aquele host é conhecido antes de
+# pedir o certificado, pra ninguém conseguir emitir certificado através
+# deste servidor pra um domínio que não é de uma empresa cadastrada.
+{
+	on_demand_tls {
+		ask http://site:3000/api/tenant/domain-check
+	}
+}
+
+:443 {
+	tls {
+		on_demand
+	}
+	reverse_proxy site:3000
+}
+
+:80 {
+	redir https://{host}{uri} permanent
+}

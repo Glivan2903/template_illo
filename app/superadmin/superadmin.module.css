@@ -1,0 +1,231 @@
+/* Estilos específicos das telas de empresas do /superadmin — tabela,
+   credenciais copiáveis, navegação entre lista e detalhe. O resto
+   reaproveita admin.module.css (fieldStyles), que carrega o design system
+   inspirado no JetOne compartilhado com o /admin. */
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted, #6b7280);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--brand-primary, #2b7a3e);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--brand-primary, #2b7a3e);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+}
+
+.cardLinkMuted {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.74rem;
+  color: var(--text-muted, #6b7280);
+  margin-top: 0.1rem;
+}
+
+.pageHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--brand-primary, #2b7a3e);
+}
+
+.credRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.credRow form {
+  flex-shrink: 0;
+}
+
+.copyField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.copyFieldLabel {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.copyFieldRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--line, #e2e5e1);
+  background: var(--bg-muted, #f6f7f5);
+  max-width: 100%;
+}
+
+.copyFieldRow code {
+  font-size: 0.82rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 260px;
+}
+
+.copyFieldRow button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted, #6b7280);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.copyFieldRow button:hover {
+  color: var(--brand-primary, #2b7a3e);
+}
+
+/* Tabela de empresas */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--line, #e2e5e1);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--line, #e2e5e1);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.rowLink:hover {
+  background: color-mix(in srgb, var(--brand-primary, #2b7a3e) 4%, transparent);
+}
+
+.rowNomeLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.rowNome {
+  display: block;
+  font-weight: 700;
+  color: var(--text, #1c2620);
+}
+
+.detalhesLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-primary, #2b7a3e);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.detalhesLink:hover {
+  text-decoration: underline;
+}
+
+.copyInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.copyInline code {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.copyInline button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted, #6b7280);
+  display: inline-flex;
+  align-items: center;
+}
+
+.copyInline button:hover {
+  color: var(--brand-primary, #2b7a3e);
+}
+
+.copyIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text-muted, #6b7280);
+  cursor: pointer;
+}
+
+.copyIconBtn:hover {
+  background: color-mix(in srgb, var(--brand-primary, #2b7a3e) 10%, white);
+  color: var(--brand-primary, #2b7a3e);
+}

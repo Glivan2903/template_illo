@@ -24,7 +24,16 @@ const PAGES = [
 // elemento marcado com data-editable dentro do iframe (ver
 // lib/EditableOverlay.js) — repassa pro pai via onSelectField, que decide
 // pra qual seção/campo pular.
-export default function PreviewFrame({ config, onSelectField, open, onClose }) {
+export default function PreviewFrame({
+  config,
+  onSelectField,
+  onFieldEdit,
+  onEspecialidadeAdd,
+  onEspecialidadeRemove,
+  open,
+  onClose,
+  fullWidth,
+}) {
   const iframeRef = useRef(null);
   const configRef = useRef(config);
   const [ready, setReady] = useState(false);
@@ -60,15 +69,30 @@ export default function PreviewFrame({ config, onSelectField, open, onClose }) {
         sendUpdate();
         return;
       }
-      if (!data || data.type !== 'ADMIN_PREVIEW_SELECT') return;
-      onSelectField?.(data.field);
+      if (data?.type === 'ADMIN_PREVIEW_SELECT') {
+        onSelectField?.(data.field);
+        return;
+      }
+      if (data?.type === 'ADMIN_PREVIEW_EDIT') {
+        onFieldEdit?.(data.field, data.value, Boolean(data.isImage));
+        return;
+      }
+      if (data?.type === 'ADMIN_PREVIEW_ESPECIALIDADE_ADD') {
+        onEspecialidadeAdd?.();
+        return;
+      }
+      if (data?.type === 'ADMIN_PREVIEW_ESPECIALIDADE_REMOVE') {
+        onEspecialidadeRemove?.(data.index);
+      }
     }
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [onSelectField]);
+  }, [onSelectField, onFieldEdit, onEspecialidadeAdd, onEspecialidadeRemove]);
 
   return (
-    <section className={`${styles.previewPane} ${open ? styles.previewPaneOpen : ''}`}>
+    <section
+      className={`${styles.previewPane} ${open ? styles.previewPaneOpen : ''} ${fullWidth ? styles.previewPaneFull : ''}`}
+    >
       <div className={styles.previewToolbar}>
         <select
           className={styles.pageSelect}
@@ -99,9 +123,11 @@ export default function PreviewFrame({ config, onSelectField, open, onClose }) {
           >
             <Smartphone size={16} />
           </button>
-          <button type="button" className={styles.previewCloseBtn} onClick={onClose} aria-label="Fechar preview">
-            <X size={18} />
-          </button>
+          {!fullWidth && (
+            <button type="button" className={styles.previewCloseBtn} onClick={onClose} aria-label="Fechar preview">
+              <X size={18} />
+            </button>
+          )}
         </div>
       </div>
       <p className={styles.previewHint}>Clique em um texto, botão ou imagem do preview para editá-lo.</p>

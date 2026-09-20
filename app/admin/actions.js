@@ -2,134 +2,67 @@
 
 import { revalidatePath } from 'next/cache';
 import { requireRole } from '../../lib/auth/guard';
-import { saveContent } from '../../lib/store';
-import { ICON_KEYS } from '../../lib/iconMap';
+import { getContent, saveContent } from '../../lib/store';
 
-function str(formData, key) {
-  return (formData.get(key) || '').toString().trim();
+// Constrói { a: { b: { c: valor } } } a partir de ['a','b','c'] — usado por
+// updateField pra gravar só o campo editado (saveContent já faz deep-merge
+// com o resto do conteúdo, ver lib/store/index.js). Upload de imagem
+// (logo/foto da fachada) vai por app/api/admin/upload-image/route.js, não
+// por aqui — Server Actions têm limite de payload baixo pra base64 de
+// imagem (ver comentário na rota).
+function buildPartial(pathParts, value) {
+  if (pathParts.length === 0) return value;
+  return { [pathParts[0]]: buildPartial(pathParts.slice(1), value) };
 }
 
-async function handleUploadedFile(file, prefix) {
-  if (!file || typeof file === 'string' || !file.size) return null;
-  const rawExt = (file.name || '').split('.').pop() || 'png';
-  const ext = rawExt.toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
-  const filename = `${prefix}-${Date.now()}.${ext}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const { saveUpload } = await import('../../lib/store');
-  return saveUpload(filename, buffer, file.type || 'application/octet-stream');
-}
-
-export async function updateIdentidade(formData) {
-  await requireRole(['admin', 'superadmin']);
-
-  await saveContent({
-    clinicNome: str(formData, 'clinicNome'),
-    horarioAtendimento: str(formData, 'horarioAtendimento'),
-    instagramHandle: str(formData, 'instagramHandle'),
-    instagramUrl: str(formData, 'instagramUrl'),
-    unidades: {
-      matriz: {
-        telefoneDisplay: str(formData, 'matrizTelefone'),
-        whatsappUrl: str(formData, 'matrizWhatsapp'),
-        endereco: str(formData, 'matrizEndereco'),
-      },
-      filial: {
-        telefoneDisplay: str(formData, 'filialTelefone'),
-        whatsappUrl: str(formData, 'filialWhatsapp'),
-        endereco: str(formData, 'filialEndereco'),
-      },
-    },
-  });
-
+// Edição inline de texto: clicar num elemento do preview, editar ali mesmo
+// (ver lib/EditableOverlay.js) e sair do campo já salva — sem formulário
+// separado. `field` é o mesmo caminho usado em data-editable (ex.:
+// "textos.heroTituloLinha1", "clinicNome", "unidades.matriz.endereco").
+export async function updateField(field, value) {
+  await requireRole(['admin']);
+  await saveContent(buildPartial(field.split('.'), value));
   revalidatePath('/', 'layout');
 }
 
-export async function updateMarca(formData) {
-  await requireRole(['admin', 'superadmin']);
-
-  const logoUrl = await handleUploadedFile(formData.get('logoFile'), 'logo');
-  const heroFotoUrl = await handleUploadedFile(formData.get('heroFile'), 'hero');
-
-  const brand = {
-    colorPrimary: str(formData, 'colorPrimary'),
-    colorSecondary: str(formData, 'colorSecondary'),
-  };
-  if (logoUrl) brand.logoUrl = logoUrl;
-
-  const partial = { brand };
-  if (heroFotoUrl) partial.heroFotoUrl = heroFotoUrl;
-
-  await saveContent(partial);
+// Página "Cores" do sidebar — única tela que ainda é um formulário (não dá
+// pra "clicar num texto" pra mudar uma cor de marca, ela não é um texto).
+export async function updateCores(colorPrimary, colorSecondary) {
+  await requireRole(['admin']);
+  await saveContent({ brand: { colorPrimary, colorSecondary } });
   revalidatePath('/', 'layout');
 }
 
-export async function updateTextos(formData) {
-  await requireRole(['admin', 'superadmin']);
-
-  await saveContent({
-    textos: {
-      heroTituloLinha1: str(formData, 'heroTituloLinha1'),
-      heroTituloLinha2: str(formData, 'heroTituloLinha2'),
-      heroSubtitle: str(formData, 'heroSubtitle'),
-      sobreTitulo: str(formData, 'sobreTitulo'),
-      sobreDescricao: str(formData, 'sobreDescricao'),
-      footerDescricao: str(formData, 'footerDescricao'),
-      ctaComAgendamentoTitulo: str(formData, 'ctaComAgendamentoTitulo'),
-      ctaComAgendamentoTexto: str(formData, 'ctaComAgendamentoTexto'),
-      ctaSemAgendamentoTitulo: str(formData, 'ctaSemAgendamentoTitulo'),
-      ctaSemAgendamentoTexto: str(formData, 'ctaSemAgendamentoTexto'),
-
-      navSobre: str(formData, 'navSobre'),
-      navEspecialidades: str(formData, 'navEspecialidades'),
-      navProfissionais: str(formData, 'navProfissionais'),
-      navOrcamento: str(formData, 'navOrcamento'),
-      navChat: str(formData, 'navChat'),
-      navContato: str(formData, 'navContato'),
-      navAreaCliente: str(formData, 'navAreaCliente'),
-      botaoAgendarConsulta: str(formData, 'botaoAgendarConsulta'),
-      botaoFalarWhatsapp: str(formData, 'botaoFalarWhatsapp'),
-      botaoFalarWhatsappRodape: str(formData, 'botaoFalarWhatsappRodape'),
-
-      agendamentoEyebrow: str(formData, 'agendamentoEyebrow'),
-      agendamentoTitulo: str(formData, 'agendamentoTitulo'),
-
-      orcamentoTitulo: str(formData, 'orcamentoTitulo'),
-      orcamentoIntro: str(formData, 'orcamentoIntro'),
-
-      medicosEyebrow: str(formData, 'medicosEyebrow'),
-      medicosTitulo: str(formData, 'medicosTitulo'),
-
-      centralTitulo: str(formData, 'centralTitulo'),
-      centralTabNovo: str(formData, 'centralTabNovo'),
-      centralTabConsultas: str(formData, 'centralTabConsultas'),
-
-      areaClienteTitulo: str(formData, 'areaClienteTitulo'),
-      areaClienteSubtitulo: str(formData, 'areaClienteSubtitulo'),
-    },
-  });
-
+export async function addEspecialidade() {
+  await requireRole(['admin']);
+  const content = await getContent();
+  const list = content.especialidades || [];
+  const nextId = Math.max(0, ...list.map((item) => item.id || 0)) + 1;
+  const next = [
+    ...list,
+    { id: nextId, nome: 'Nova especialidade', descricao: 'Descrição da especialidade.', icone: 'Stethoscope' },
+  ];
+  const saved = await saveContent({ especialidades: next });
   revalidatePath('/', 'layout');
+  return saved.especialidades;
 }
 
-export async function updateEspecialidades(formData) {
-  await requireRole(['admin', 'superadmin']);
+export async function removeEspecialidade(index) {
+  await requireRole(['admin']);
+  const content = await getContent();
+  const list = content.especialidades || [];
+  const next = list.filter((_, i) => i !== index);
+  const saved = await saveContent({ especialidades: next });
+  revalidatePath('/', 'layout');
+  return saved.especialidades;
+}
 
-  let parsed = [];
-  try {
-    parsed = JSON.parse(formData.get('especialidadesJson') || '[]');
-  } catch {
-    parsed = [];
-  }
-
-  const especialidades = (Array.isArray(parsed) ? parsed : [])
-    .filter((item) => item && String(item.nome || '').trim())
-    .map((item, idx) => ({
-      id: idx + 1,
-      nome: String(item.nome).trim(),
-      descricao: String(item.descricao || '').trim(),
-      icone: ICON_KEYS.includes(item.icone) ? item.icone : 'Stethoscope',
-    }));
-
-  await saveContent({ especialidades });
+export async function updateEspecialidadeField(index, key, value) {
+  await requireRole(['admin']);
+  if (key !== 'nome' && key !== 'descricao') return;
+  const content = await getContent();
+  const list = content.especialidades || [];
+  const next = list.map((item, i) => (i === index ? { ...item, [key]: value } : item));
+  await saveContent({ especialidades: next });
   revalidatePath('/', 'layout');
 }

@@ -6,6 +6,14 @@ import { SiteConfigProvider } from "../lib/siteConfigContext";
 import BrandVars from "../lib/BrandVars";
 import EditableOverlay from "../lib/EditableOverlay";
 import ChatWidget from "../components/chat/ChatWidget";
+import { getCurrentTenant } from "../lib/tenant";
+
+// Sem isso, o Next faz build estático de todas as páginas (nenhuma usa
+// cookies()/headers()) e congela o conteúdo do content.json/settings.json
+// no HTML gerado em `next build` — edições feitas depois em /admin e
+// /superadmin nunca apareceriam em produção sem rebuild da imagem. Força
+// renderização dinâmica (por request) em todo o site.
+export const dynamic = 'force-dynamic';
 
 const figtree = Figtree({
   variable: "--font-sans",
@@ -35,6 +43,7 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
+  const tenant = await getCurrentTenant();
   const siteConfig = await getSiteConfig();
   const featureFlags = await getFeatureFlags();
   const providerValue = { ...siteConfig, ...featureFlags };
@@ -53,7 +62,7 @@ export default async function RootLayout({ children }) {
           <BrandVars />
           <EditableOverlay />
           {children}
-          {featureFlags.FEATURE_CHAT_FLUTUANTE && <ChatWidget />}
+          {tenant && featureFlags.FEATURE_CHAT_FLUTUANTE && <ChatWidget />}
         </SiteConfigProvider>
       </body>
     </html>

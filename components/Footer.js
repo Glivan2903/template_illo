@@ -101,8 +101,8 @@ export default function Footer({ mostrarMatriz = true, mostrarFilial = true } = 
                 <div>
                   <strong className={styles.contactStrong}>Unidade Matriz</strong>
                   <span data-editable="unidades.matriz.endereco">{CLINIC_ENDERECO_MATRIZ}</span>
-                  <span className={styles.contactPhone} data-editable="unidades.matriz.telefoneDisplay">
-                    <Phone size={14} /> {CLINIC_PHONE_DISPLAY_MATRIZ}
+                  <span className={styles.contactPhone}>
+                    <Phone size={14} /> <span data-editable="unidades.matriz.telefoneDisplay">{CLINIC_PHONE_DISPLAY_MATRIZ}</span>
                   </span>
                 </div>
               </li>
@@ -113,8 +113,8 @@ export default function Footer({ mostrarMatriz = true, mostrarFilial = true } = 
                 <div>
                   <strong className={styles.contactStrong}>Unidade Filial</strong>
                   <span data-editable="unidades.filial.endereco">{CLINIC_ENDERECO_FILIAL}</span>
-                  <span className={styles.contactPhone} data-editable="unidades.filial.telefoneDisplay">
-                    <Phone size={14} /> {CLINIC_PHONE_DISPLAY_FILIAL}
+                  <span className={styles.contactPhone}>
+                    <Phone size={14} /> <span data-editable="unidades.filial.telefoneDisplay">{CLINIC_PHONE_DISPLAY_FILIAL}</span>
                   </span>
                 </div>
               </li>

@@ -1,0 +1,134 @@
+/* Gráficos do Dashboard — marcas finas, cantos arredondados na ponta,
+   gap de 2px entre barras adjacentes, tooltip on-hover (ver
+   EmpresasPorMesChart.js / ModulosUsoChart.js). Paleta: um hue só (verde da
+   marca) porque cada gráfico plota uma métrica única (magnitude), não
+   identidade categórica — não precisa de paleta multi-cor. */
+
+.chartCard {
+  position: relative;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line, #e2e5e1);
+  border-radius: 1.75rem;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 16px 32px -24px rgba(0, 0, 0, 0.16);
+}
+
+.chartTitle {
+  margin: 0 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--brand-primary, #2b7a3e);
+}
+
+.chartHint {
+  margin: 0 0 1.25rem;
+  font-size: 0.74rem;
+  font-style: italic;
+  color: var(--text-muted, #6b7280);
+}
+
+/* Barras verticais (empresas por mês) */
+
+.barsRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 160px;
+}
+
+.barCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  max-width: 28px;
+  border-radius: 4px 4px 0 0;
+  background: var(--brand-primary, #2b7a3e);
+  transition: filter 0.12s ease;
+  cursor: default;
+}
+
+.barCol:hover .bar {
+  filter: brightness(1.15);
+}
+
+.barLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted, #6b7280);
+  white-space: nowrap;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+  padding: 0.3rem 0.55rem;
+  border-radius: 0.6rem;
+  background: var(--text, #1c2620);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Barras horizontais (uso de módulos) */
+
+.hBarRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+}
+
+.hBarLabel {
+  flex: 0 0 150px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text, #1c2620);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hBarTrack {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--bg-muted, #f0f1ee);
+  overflow: hidden;
+}
+
+.hBarFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--brand-primary, #2b7a3e);
+  transition: filter 0.12s ease;
+}
+
+.hBarRow:hover .hBarFill {
+  filter: brightness(1.15);
+}
+
+.hBarValue {
+  flex: 0 0 42px;
+  text-align: right;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted, #6b7280);
+}

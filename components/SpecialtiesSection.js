@@ -7,7 +7,7 @@ import { useSiteConfig } from '../lib/siteConfigContext';
 import { getIconComponent } from '../lib/iconMap';
 
 export default function SpecialtiesSection() {
-  const { ESPECIALIDADES } = useSiteConfig();
+  const { ESPECIALIDADES, __previewMode } = useSiteConfig();
   const rootRef = useRef(null);
 
   useGSAP(
@@ -52,7 +52,7 @@ export default function SpecialtiesSection() {
         </div>
 
         <div className={styles.grid}>
-          {(ESPECIALIDADES || []).map((spec) => {
+          {(ESPECIALIDADES || []).map((spec, index) => {
             const Icon = getIconComponent(spec.icone);
             return (
               <div
@@ -60,16 +60,34 @@ export default function SpecialtiesSection() {
                 className={styles.card}
                 onMouseEnter={(e) => lift(e, true)}
                 onMouseLeave={(e) => lift(e, false)}
-                data-editable="especialidades"
               >
+                {__previewMode && (
+                  <button
+                    type="button"
+                    className={styles.removeBtn}
+                    data-remove-especialidade={index}
+                    aria-label="Remover especialidade"
+                  >
+                    ×
+                  </button>
+                )}
                 <div className={styles.iconWrapper}>
                   <Icon size={20} />
                 </div>
-                <h3 className={styles.cardTitle}>{spec.nome}</h3>
-                <p className={styles.cardDesc}>{spec.descricao}</p>
+                <h3 className={styles.cardTitle} data-editable={`especialidades.${index}.nome`}>
+                  {spec.nome}
+                </h3>
+                <p className={styles.cardDesc} data-editable={`especialidades.${index}.descricao`}>
+                  {spec.descricao}
+                </p>
               </div>
             );
           })}
+          {__previewMode && (
+            <button type="button" className={styles.addCard} data-add-especialidade>
+              + Adicionar especialidade
+            </button>
+          )}
         </div>
       </div>
     </section>

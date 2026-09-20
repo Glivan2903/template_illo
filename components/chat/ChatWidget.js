@@ -16,7 +16,11 @@ export default function ChatWidget() {
   const fabRef = useRef(null);
   const panelRef = useRef(null);
 
-  const hidden = pathname === '/chat' || pathname.startsWith('/medicos/');
+  const hidden =
+    pathname === '/chat' ||
+    pathname.startsWith('/medicos/') ||
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/superadmin');
 
   useGSAP(
     () => {

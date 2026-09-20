@@ -13,6 +13,8 @@ export default function ConfirmDialog({
   danger = false,
   onConfirm,
   onCancel,
+  dialogClassName,
+  confirmClassName,
 }) {
   useEffect(() => {
     if (!open) return;
@@ -28,7 +30,7 @@ export default function ConfirmDialog({
   return (
     <div className={styles.overlay} onClick={onCancel}>
       <div
-        className={styles.dialog}
+        className={`${styles.dialog} ${dialogClassName || ''}`}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="confirmDialogTitle"
@@ -49,7 +51,7 @@ export default function ConfirmDialog({
           </button>
           <button
             type="button"
-            className={danger ? styles.btnDanger : 'btn-primary'}
+            className={confirmClassName || (danger ? styles.btnDanger : 'btn-primary')}
             onClick={onConfirm}
           >
             {confirmLabel}

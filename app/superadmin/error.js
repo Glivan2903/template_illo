@@ -15,8 +15,8 @@ export default function SuperadminError({ error, unstable_retry }) {
       <section className={fieldStyles.card}>
         <h2 className={fieldStyles.cardTitle}>Não foi possível concluir a ação</h2>
         <p className={fieldStyles.cardHint}>
-          Algo deu errado ao salvar. Tente novamente — se persistir, confira se o storage
-          (Vercel Blob) está configurado corretamente.
+          Algo deu errado ao salvar. Tente novamente — se persistir, confira se o banco
+          local (data/app.db) está acessível e com permissão de escrita.
         </p>
         {error?.digest && <p className={fieldStyles.warningBox}>Código do erro: {error.digest}</p>}
         <button type="button" className={fieldStyles.secondaryBtn} onClick={() => unstable_retry()}>
