@@ -74,6 +74,7 @@ export async function updateModulosAction(formData) {
     especialidades: checked(formData, 'especialidades'),
     cta: checked(formData, 'cta'),
     profissionais: checked(formData, 'profissionais'),
+    agendamentoPorProfissional: checked(formData, 'agendamentoPorProfissional'),
     orcamento: checked(formData, 'orcamento'),
     agendamento: checked(formData, 'agendamento'),
     areaCliente: checked(formData, 'areaCliente'),

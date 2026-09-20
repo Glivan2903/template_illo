@@ -14,11 +14,22 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Agendamento() {
+export default async function Agendamento({ searchParams }) {
   const { FEATURE_AGENDAMENTO } = await getFeatureFlags();
   if (!FEATURE_AGENDAMENTO) notFound();
 
   const { TEXTOS } = await getSiteConfig();
+
+  // Chegando de um card em /medicos com o link direto por profissional
+  // (ver MedicosDirectory linkAgendamentoDoProfissional) — pula pro passo
+  // 3 do wizard já com centro/profissional escolhidos.
+  const sp = await searchParams;
+  const initialCentro =
+    sp?.unidade && sp?.cen ? { unidade: sp.unidade, CEN_CODIGO: sp.cen, CEN_DESCRICAO: sp.cenNome || '' } : null;
+  const initialProfissional =
+    sp?.prof && initialCentro
+      ? { PROF_CODIGO: sp.prof, CONS_CODIGO: sp.cons || '', PROF_ESTADO_CONS: sp.uf || '', PROF_NOME: sp.nome || '' }
+      : null;
 
   return (
     <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -30,7 +41,7 @@ export default async function Agendamento() {
           <h2 className="text-center responsiveTitle" data-editable="textos.agendamentoTitulo">
             {TEXTOS?.agendamentoTitulo}
           </h2>
-          <BookingWizard />
+          <BookingWizard initialCentro={initialCentro} initialProfissional={initialProfissional} />
         </div>
       </section>
 

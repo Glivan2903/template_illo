@@ -11,7 +11,27 @@ function nomeUnidade(unidadeId) {
   return UNIDADES_INFO.find((u) => u.id === unidadeId)?.nome || unidadeId;
 }
 
-export default function MedicosDirectory({ profissionais }) {
+// Monta a URL de /agendamento já filtrada pro profissional (pula direto pro
+// passo 3 do wizard — ver initialCentro/initialProfissional em
+// BookingWizard e a leitura desses parâmetros em app/agendamento/page.js).
+// Usa a primeira especialidade dele: um profissional pode atender em mais
+// de um centro/especialidade, mas o link do card não tem como escolher
+// qual — quem quiser outra opção segue pelo fluxo genérico de /agendamento.
+function linkAgendamentoDoProfissional(prof) {
+  const primeira = prof.especialidades[0];
+  const params = new URLSearchParams({
+    unidade: prof.unidade,
+    cen: primeira.cenCodigo,
+    cenNome: primeira.especialidade,
+    prof: prof.profCodigo,
+    cons: prof.consCodigo || '',
+    uf: prof.profEstadoCons || '',
+    nome: prof.apelido || prof.nome,
+  });
+  return `/agendamento?${params.toString()}`;
+}
+
+export default function MedicosDirectory({ profissionais, linkPorProfissional }) {
   const [searchQuery, setSearchQuery] = useState('');
   const rootRef = useRef(null);
 
@@ -64,7 +84,7 @@ export default function MedicosDirectory({ profissionais }) {
         {filtrados.map((prof) => (
           <Link
             key={prof.slug}
-            href="/agendamento"
+            href={linkPorProfissional ? linkAgendamentoDoProfissional(prof) : '/agendamento'}
             className={styles.card}
             onMouseEnter={(e) => lift(e, true)}
             onMouseLeave={(e) => lift(e, false)}

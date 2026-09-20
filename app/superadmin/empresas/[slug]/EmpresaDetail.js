@@ -18,6 +18,7 @@ const FLAG_LABELS = [
   { key: 'especialidades', label: 'Seção "Especialidades" (Home)' },
   { key: 'cta', label: 'Seção de chamada final (Home)' },
   { key: 'profissionais', label: 'Diretório de profissionais (/medicos)' },
+  { key: 'agendamentoPorProfissional', label: 'Link de agendamento direto por profissional (em /medicos)' },
   { key: 'orcamento', label: 'Orçamento de exames (/orcamento)' },
   { key: 'agendamento', label: 'Agendamento online (/agendamento)' },
   { key: 'areaCliente', label: 'Área do Cliente (/area-cliente)' },

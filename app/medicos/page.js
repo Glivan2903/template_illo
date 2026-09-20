@@ -18,7 +18,7 @@ export async function generateMetadata() {
 }
 
 export default async function Medicos() {
-  const { FEATURE_PROFISSIONAIS } = await getFeatureFlags();
+  const { FEATURE_PROFISSIONAIS, FEATURE_AGENDAMENTO_POR_PROFISSIONAL } = await getFeatureFlags();
   if (!FEATURE_PROFISSIONAIS) notFound();
 
   const { TEXTOS } = await getSiteConfig();
@@ -31,7 +31,7 @@ export default async function Medicos() {
       <section className="pageSection container">
         <span className="eyebrow" style={{ marginBottom: "0.75rem" }} data-editable="textos.medicosEyebrow">{TEXTOS?.medicosEyebrow}</span>
         <h1 className="responsiveTitle" style={{ marginBottom: "1.5rem" }} data-editable="textos.medicosTitulo">{TEXTOS?.medicosTitulo}</h1>
-        <MedicosDirectory profissionais={profissionais} />
+        <MedicosDirectory profissionais={profissionais} linkPorProfissional={FEATURE_AGENDAMENTO_POR_PROFISSIONAL} />
       </section>
 
       <Footer {...(await getUnidadesFooterProps())} />
