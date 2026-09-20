@@ -14,10 +14,16 @@ import styles from './sidebar.module.css';
 // via onSelectSection, usado pelo /admin pra alternar a página de "Cores")
 // ou um link de verdade (href, usado pelo /superadmin pra navegar entre
 // Dashboard/Empresas/detalhe de uma empresa — rotas reais, com histórico e
-// botão de voltar do navegador funcionando).
+// botão de voltar do navegador funcionando). Um item local pode trazer
+// `expanded` (conteúdo React) — some abre embaixo do próprio botão, dentro
+// do sidebar, em vez de abrir um painel separado ao lado do preview (ver
+// AdminWorkspace/"Cores"). Por isso, ao contrário de um link, selecionar um
+// item local NÃO fecha o drawer no mobile — é dentro dele que o conteúdo
+// expandido aparece.
 export default function Sidebar({
   brandLabel,
   brandSubtitle,
+  brandLogo,
   sections,
   activeSection,
   onSelectSection,
@@ -25,27 +31,28 @@ export default function Sidebar({
   onClose,
   footer,
 }) {
-  function handleSelect(key) {
-    onSelectSection?.(key);
-    onClose?.();
-  }
-
   return (
     <>
       {open && <div className={styles.backdrop} onClick={onClose} />}
       <aside className={`${styles.sidebar} ${open ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
-          <div>
-            <p className={styles.sidebarBrand}>{brandLabel}</p>
-            {brandSubtitle && <p className={styles.sidebarSubtitle}>{brandSubtitle}</p>}
-          </div>
+          {brandLogo ? (
+            <span className={styles.sidebarLogoWrap}>
+              <img src={brandLogo} alt={brandLabel || ''} className={styles.sidebarLogo} />
+            </span>
+          ) : (
+            <div>
+              <p className={styles.sidebarBrand}>{brandLabel}</p>
+              {brandSubtitle && <p className={styles.sidebarSubtitle}>{brandSubtitle}</p>}
+            </div>
+          )}
           <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Fechar menu">
             <X size={18} />
           </button>
         </div>
 
         <nav className={styles.nav}>
-          {sections.map(({ key, label, icon: Icon, href, active }) => {
+          {sections.map(({ key, label, icon: Icon, href, active, expanded }) => {
             const isActive = href ? Boolean(active) : activeSection === key;
             const className = `${styles.navItem} ${isActive ? styles.navItemActive : ''}`;
             if (href) {
@@ -57,10 +64,13 @@ export default function Sidebar({
               );
             }
             return (
-              <button key={key} type="button" className={className} onClick={() => handleSelect(key)}>
-                <Icon size={18} />
-                <span>{label}</span>
-              </button>
+              <div key={key} className={styles.navGroup}>
+                <button type="button" className={className} onClick={() => onSelectSection?.(key)}>
+                  <Icon size={18} />
+                  <span>{label}</span>
+                </button>
+                {isActive && expanded && <div className={styles.navExpanded}>{expanded}</div>}
+              </div>
             );
           })}
         </nav>

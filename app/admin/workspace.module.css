@@ -126,44 +126,11 @@
   color: var(--brand-primary, #2b7a3e);
 }
 
-.previewToggleBtn {
-  display: none;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.6rem 0.95rem;
-  border-radius: 1rem;
-  border: 1px solid var(--line, #e2e5e1);
-  background: var(--bg-muted, #f6f7f5);
-  font-size: 0.66rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-}
-
 .body {
   flex: 1;
   display: flex;
   min-height: 0;
   overflow: hidden;
-}
-
-/* /admin: painel de edição estreito, sempre ao lado do preview — largura
-   fixa (não cresce), com overflow-x travado de propósito: se algum campo
-   "quisesse" ficar mais largo que isso, ele é cortado dentro do próprio
-   painel em vez de vazar visualmente por baixo do preview. */
-.editorPane {
-  flex: 0 0 320px;
-  width: 320px;
-  max-width: 320px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.editorPane > * + * {
-  margin-top: 0.75rem;
 }
 
 /* /superadmin: não tem preview ao lado, então usa todo o espaço restante
@@ -182,17 +149,15 @@
   margin-top: 0.75rem;
 }
 
+/* /admin: sem painel de edição ao lado (Cores mora dentro do próprio
+   sidebar — ver Sidebar.js) — o preview sempre usa o resto da largura. */
 .previewPane {
   flex: 1 1 auto;
   min-width: 0;
-  display: none;
+  display: flex;
   flex-direction: column;
   background: #eef0ec;
   border-left: 1px solid var(--line, #e2e5e1);
-}
-
-.previewPane.previewPaneOpen {
-  display: flex;
 }
 
 .previewToolbar {
@@ -255,18 +220,6 @@
 .deviceBtnActive {
   border-color: var(--brand-primary, #2b7a3e);
   color: var(--brand-primary, #2b7a3e);
-}
-
-.previewCloseBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--line, #e2e5e1);
-  background: #fff;
-  cursor: pointer;
 }
 
 .previewFrameWrap {
@@ -360,43 +313,10 @@
   outline-offset: 2px;
 }
 
-@media (min-width: 1100px) {
-  .previewPane {
-    display: flex;
-    position: static;
-  }
-  .previewToggleBtn {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1099px) {
-  .previewToggleBtn {
-    display: inline-flex;
-  }
-  .previewPane {
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-  }
-}
-
-/* Sem painel lateral disputando espaço (nenhuma seção do sidebar ativa),
-   o preview é o conteúdo principal — ocupa a área toda em qualquer
-   largura, sem o comportamento de overlay/toggle usado quando o painel de
-   "Cores" está aberto ao lado dele. */
-.previewPaneFull {
-  display: flex !important;
-  position: static !important;
-  inset: auto !important;
-  z-index: auto !important;
-}
-
 @media (max-width: 760px) {
   .shell {
     height: 100vh;
   }
-  .editorPane,
   .editorPaneFull {
     max-width: none;
     width: 100%;

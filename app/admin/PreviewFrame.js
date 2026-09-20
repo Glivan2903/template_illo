@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Monitor, Smartphone, X } from 'lucide-react';
+import { Monitor, Smartphone } from 'lucide-react';
 import styles from './workspace.module.css';
 
 const PAGES = [
@@ -30,9 +30,6 @@ export default function PreviewFrame({
   onFieldEdit,
   onEspecialidadeAdd,
   onEspecialidadeRemove,
-  open,
-  onClose,
-  fullWidth,
 }) {
   const iframeRef = useRef(null);
   const configRef = useRef(config);
@@ -90,9 +87,7 @@ export default function PreviewFrame({
   }, [onSelectField, onFieldEdit, onEspecialidadeAdd, onEspecialidadeRemove]);
 
   return (
-    <section
-      className={`${styles.previewPane} ${open ? styles.previewPaneOpen : ''} ${fullWidth ? styles.previewPaneFull : ''}`}
-    >
+    <section className={styles.previewPane}>
       <div className={styles.previewToolbar}>
         <select
           className={styles.pageSelect}
@@ -123,11 +118,6 @@ export default function PreviewFrame({
           >
             <Smartphone size={16} />
           </button>
-          {!fullWidth && (
-            <button type="button" className={styles.previewCloseBtn} onClick={onClose} aria-label="Fechar preview">
-              <X size={18} />
-            </button>
-          )}
         </div>
       </div>
       <p className={styles.previewHint}>Clique em um texto, botão ou imagem do preview para editá-lo.</p>

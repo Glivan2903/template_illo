@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useRef, useState } from 'react';
-import { Palette, Menu, Eye, Check, Loader2 } from 'lucide-react';
+import { Palette, Menu, Check, Loader2 } from 'lucide-react';
 import ColorField from './ColorField';
 import Sidebar from './Sidebar';
 import LogoutButton from './LogoutButton';
@@ -10,8 +10,6 @@ import { mapContentToSiteConfig } from '../../lib/mapSiteConfig';
 import styles from './workspace.module.css';
 import fieldStyles from './admin.module.css';
 
-const SECTIONS = [{ key: 'cores', label: 'Cores', icon: Palette }];
-
 const CORES_SAVE_DEBOUNCE_MS = 600;
 
 export default function AdminWorkspace({ initialContent, featureFlags, logoutAction, actions }) {
@@ -19,7 +17,6 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
   const [draft, setDraft] = useState(initialContent);
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [previewOpenMobile, setPreviewOpenMobile] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | saving | saved
   const savedTimerRef = useRef(null);
   const coresSaveTimerRef = useRef(null);
@@ -124,7 +121,33 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
   }
 
   const brand = draft.brand || {};
-  const fullWidthPreview = !activeSection;
+
+  // Só "Cores" existe hoje — expande embaixo do próprio botão, dentro do
+  // sidebar (ver Sidebar.js), em vez de abrir um painel ao lado do preview:
+  // assim o preview sempre usa toda a largura disponível.
+  const sections = [
+    {
+      key: 'cores',
+      label: 'Cores',
+      icon: Palette,
+      expanded: (
+        <div className={fieldStyles.form}>
+          <ColorField
+            label="Cor primária"
+            name="colorPrimary"
+            value={brand.colorPrimary || '#2b7a3e'}
+            onChange={(v) => handleCorChange({ colorPrimary: v, colorSecondary: brand.colorSecondary || '#8cc63f' })}
+          />
+          <ColorField
+            label="Cor secundária"
+            name="colorSecondary"
+            value={brand.colorSecondary || '#8cc63f'}
+            onChange={(v) => handleCorChange({ colorPrimary: brand.colorPrimary || '#2b7a3e', colorSecondary: v })}
+          />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className={styles.shell}>
@@ -141,11 +164,6 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
           <h1 className={styles.topBarTitle}>Painel admin</h1>
         </div>
         <div className={styles.topBarActions}>
-          {!fullWidthPreview && (
-            <button type="button" className={styles.previewToggleBtn} onClick={() => setPreviewOpenMobile(true)}>
-              <Eye size={16} /> Ver site
-            </button>
-          )}
           {status !== 'idle' && (
             <span className={fieldStyles.saveStatus} data-state={status}>
               {status === 'saving' ? (
@@ -164,9 +182,9 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
 
       <div className={styles.body}>
         <Sidebar
+          brandLogo={brand.logoUrl}
           brandLabel="Painel admin"
-          brandSubtitle="Edite direto no preview"
-          sections={SECTIONS}
+          sections={sections}
           activeSection={activeSection}
           onSelectSection={(key) => setActiveSection((prev) => (prev === key ? null : key))}
           open={mobileNavOpen}
@@ -174,36 +192,8 @@ export default function AdminWorkspace({ initialContent, featureFlags, logoutAct
           footer={<LogoutButton action={logoutAction} className={styles.secondaryBtn} />}
         />
 
-        {activeSection === 'cores' && (
-          <div className={styles.editorPane}>
-            <section className={fieldStyles.card}>
-              <h2 className={fieldStyles.cardTitle}>Cores</h2>
-              <p className={fieldStyles.cardHint}>
-                Cor primária e secundária do site — usadas em botões, links e destaques em todas as páginas.
-              </p>
-              <div className={fieldStyles.form}>
-                <ColorField
-                  label="Cor primária"
-                  name="colorPrimary"
-                  value={brand.colorPrimary || '#2b7a3e'}
-                  onChange={(v) => handleCorChange({ colorPrimary: v, colorSecondary: brand.colorSecondary || '#8cc63f' })}
-                />
-                <ColorField
-                  label="Cor secundária"
-                  name="colorSecondary"
-                  value={brand.colorSecondary || '#8cc63f'}
-                  onChange={(v) => handleCorChange({ colorPrimary: brand.colorPrimary || '#2b7a3e', colorSecondary: v })}
-                />
-              </div>
-            </section>
-          </div>
-        )}
-
         <PreviewFrame
           config={previewConfig}
-          open={previewOpenMobile}
-          onClose={() => setPreviewOpenMobile(false)}
-          fullWidth={fullWidthPreview}
           onFieldEdit={handleFieldEdit}
           onEspecialidadeAdd={handleEspecialidadeAdd}
           onEspecialidadeRemove={handleEspecialidadeRemove}

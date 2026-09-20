@@ -42,6 +42,19 @@
   color: var(--brand-primary, #2b7a3e);
 }
 
+.sidebarLogoWrap {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.sidebarLogo {
+  height: 2rem;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
 .closeBtn {
   display: none;
   align-items: center;
@@ -92,6 +105,15 @@
   background: color-mix(in srgb, var(--brand-primary, #2b7a3e) 12%, white);
   border-left-color: var(--brand-primary, #2b7a3e);
   color: var(--brand-primary, #2b7a3e);
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.navExpanded {
+  padding: 0.85rem 0.9rem 0.25rem;
 }
 
 .sidebarFooter {
