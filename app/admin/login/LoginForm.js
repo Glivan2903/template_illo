@@ -9,14 +9,13 @@ import styles from './login.module.css';
 
 gsap.registerPlugin(TextPlugin);
 
-// Frases genéricas o bastante pra caber tanto no login de uma empresa
-// quanto no login da plataforma (superadmin) — o parágrafo abaixo do
-// título já cobre o contexto específico de cada um.
+// Frases persuasivas sobre o que a plataforma oferece pra clínica —
+// mesmo texto serve tanto o login de uma empresa quanto o da plataforma.
 const TAGLINES = [
-  'O site da sua clínica, sempre pronto.',
-  'Edite textos e fotos direto na tela — sem código.',
-  'Agendamento, exames e a Sofia, tudo em um painel.',
-  'Sua marca, suas cores, seu domínio.',
+  'Agendamento online, sem fricção pro paciente.',
+  'A Sofia atende por IA, 24 horas por dia.',
+  'Orçamento de exames em segundos, sem planilha.',
+  'Tudo isso com a cara da sua clínica.',
 ];
 
 export default function LoginForm({ tenantNome, logoUrl }) {
@@ -142,19 +141,6 @@ export default function LoginForm({ tenantNome, logoUrl }) {
           </div>
 
           <h2 className={styles.title}>Entrar</h2>
-          <p className={styles.hint}>
-            {tenantNome ? (
-              <>
-                Você está entrando no painel admin de <strong>{tenantNome}</strong>. Use o usuário e a senha gerados
-                para essa empresa no <code>/superadmin</code>.
-              </>
-            ) : (
-              <>
-                Você está no domínio da plataforma — aqui só funciona o login de <strong>superadmin</strong>. Pra
-                entrar como admin de uma empresa, acesse o link dela (subdomínio ou domínio próprio).
-              </>
-            )}
-          </p>
 
           <form action={formAction} className={styles.form}>
             {comErro && <p className={styles.error}>Usuário ou senha inválidos.</p>}
