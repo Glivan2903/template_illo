@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Plus, X, ExternalLink, ChevronRight, Building2 } from 'lucide-react';
 import SaveButton from '../../admin/SaveButton';
 import { CopyField, CopyIconButton, CopyAllButton } from '../CopyField';
@@ -10,6 +11,7 @@ import styles from '../superadmin.module.css';
 
 export default function EmpresasList({ empresas, actions }) {
   const { createEmpresaAction } = actions;
+  const router = useRouter();
   const [formOpen, setFormOpen] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [erro, setErro] = useState(null);
@@ -114,9 +116,13 @@ export default function EmpresasList({ empresas, actions }) {
               </thead>
               <tbody>
                 {empresas.map((empresa) => (
-                  <tr key={empresa.slug} className={styles.rowLink}>
+                  <tr
+                    key={empresa.slug}
+                    className={styles.rowLink}
+                    onClick={() => router.push(`/superadmin/empresas/${empresa.slug}`)}
+                  >
                     <td>
-                      <Link href={`/superadmin/empresas/${empresa.slug}`} className={styles.rowNomeLink}>
+                      <div className={styles.rowNomeLink}>
                         <span className={fieldStyles.avatarIcon}>
                           <Building2 size={18} />
                         </span>
@@ -129,7 +135,7 @@ export default function EmpresasList({ empresas, actions }) {
                             </span>
                           )}
                         </span>
-                      </Link>
+                      </div>
                     </td>
                     <td>
                       {empresa.dominioCustomizado ? (
@@ -139,9 +145,19 @@ export default function EmpresasList({ empresas, actions }) {
                       )}
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      <Link href={`/superadmin/empresas/${empresa.slug}`} className={styles.detalhesLink}>
-                        Ver detalhes <ChevronRight size={14} />
-                      </Link>
+                      <div className={styles.rowActions}>
+                        <CopyAllButton
+                          iconOnly
+                          label="Copiar dados de acesso"
+                          nome={empresa.nome}
+                          link={empresa.link}
+                          adminUser={empresa.adminUser}
+                          adminPassword={empresa.adminPassword}
+                        />
+                        <Link href={`/superadmin/empresas/${empresa.slug}`} className={styles.detalhesLink}>
+                          Ver detalhes <ChevronRight size={14} />
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}

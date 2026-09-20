@@ -60,15 +60,22 @@
   color: var(--brand-primary, #2b7a3e);
 }
 
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardHeadInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .credRow {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 1rem;
-}
-
-.credRow form {
-  flex-shrink: 0;
+  gap: 1.5rem;
 }
 
 .copyField {
@@ -152,8 +159,19 @@
   border-bottom: none;
 }
 
+.rowLink {
+  cursor: pointer;
+}
+
 .rowLink:hover {
   background: color-mix(in srgb, var(--brand-primary, #2b7a3e) 4%, transparent);
+}
+
+.rowActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
 }
 
 .rowNomeLink {

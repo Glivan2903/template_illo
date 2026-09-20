@@ -59,6 +59,15 @@
   line-height: 1.4;
 }
 
+.cardActions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
 .eyebrow {
   display: inline-block;
   font-size: 0.68rem;
@@ -329,6 +338,7 @@
 
 .statusBox {
   position: relative;
+  margin-top: 1rem;
   font-size: 0.82rem;
   color: var(--text-muted, #6b7280);
   background: var(--bg-muted, #f6f7f5);

@@ -10,6 +10,8 @@ export default async function EmpresasPage() {
     nome: empresa.nome,
     dominioCustomizado: empresa.dominio_customizado,
     link: empresaLink(empresa, origin),
+    adminUser: empresa.admin_user,
+    adminPassword: empresa.admin_password,
   }));
 
   return <EmpresasList empresas={rows} actions={{ createEmpresaAction }} />;

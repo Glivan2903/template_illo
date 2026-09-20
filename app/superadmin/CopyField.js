@@ -100,11 +100,14 @@ export function CopyIconButton({ value, label = 'Copiar link', size = 13 }) {
 }
 
 // Botão "copiar tudo" — junta site, painel admin, usuário e senha num texto
-// só, pronto pra colar e mandar pro cliente.
-export function CopyAllButton({ nome, link, adminUser, adminPassword, className }) {
+// só, pronto pra colar e mandar pro cliente. `iconOnly` usa o mesmo visual
+// do CopyIconButton (linha de tabela, sem espaço pro texto do botão).
+export function CopyAllButton({ nome, link, adminUser, adminPassword, className, iconOnly, label = 'Copiar dados de acesso' }) {
   const [copied, setCopied] = useState(false);
 
-  async function handleClick() {
+  async function handleClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
     const text = buildAccessText({ nome, link, adminUser, adminPassword });
     if (await copyText(text)) {
       setCopied(true);
@@ -112,10 +115,18 @@ export function CopyAllButton({ nome, link, adminUser, adminPassword, className 
     }
   }
 
+  if (iconOnly) {
+    return (
+      <button type="button" className={className || styles.copyIconBtn} onClick={handleClick} aria-label={label} title={label}>
+        {copied ? <Check size={13} /> : <ClipboardCopy size={13} />}
+      </button>
+    );
+  }
+
   return (
     <button type="button" className={className || fieldStyles.secondaryBtn} onClick={handleClick}>
       {copied ? <Check size={13} /> : <ClipboardCopy size={13} />}
-      {copied ? 'Copiado!' : 'Copiar dados de acesso'}
+      {copied ? 'Copiado!' : label}
     </button>
   );
 }
