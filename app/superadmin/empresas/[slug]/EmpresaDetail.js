@@ -79,7 +79,7 @@ export default function EmpresaDetail({ empresa, actions }) {
 
       <div className={styles.stack}>
         <div className={fieldStyles.card}>
-          <div className={fieldStyles.cardHead}>
+          <div className={`${fieldStyles.cardHead} ${styles.empresaCardHead}`}>
             <div className={styles.cardHeadInfo}>
               <span className={fieldStyles.avatarIcon}>
                 <Building2 size={20} />
@@ -90,7 +90,7 @@ export default function EmpresaDetail({ empresa, actions }) {
                 {empresa.link && (
                   <span className={styles.cardLinkMuted}>
                     <a href={empresa.link} target="_blank" rel="noreferrer" className={styles.cardLink}>
-                      {empresa.link} <ExternalLink size={12} />
+                      <span>{empresa.link}</span> <ExternalLink size={12} />
                     </a>
                     <CopyIconButton value={empresa.link} label="Copiar link da empresa" />
                   </span>

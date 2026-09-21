@@ -110,7 +110,7 @@ export default function EmpresasList({ empresas, actions }) {
               <thead>
                 <tr>
                   <th>Empresa</th>
-                  <th>Domínio próprio</th>
+                  <th className={styles.colDominio}>Domínio próprio</th>
                   <th />
                 </tr>
               </thead>
@@ -137,7 +137,7 @@ export default function EmpresasList({ empresas, actions }) {
                         </span>
                       </div>
                     </td>
-                    <td>
+                    <td className={styles.colDominio}>
                       {empresa.dominioCustomizado ? (
                         <span className={fieldStyles.badge}>{empresa.dominioCustomizado}</span>
                       ) : (
@@ -155,7 +155,7 @@ export default function EmpresasList({ empresas, actions }) {
                           adminPassword={empresa.adminPassword}
                         />
                         <Link href={`/superadmin/empresas/${empresa.slug}`} className={styles.detalhesLink}>
-                          Ver detalhes <ChevronRight size={14} />
+                          <span className={styles.detalhesLabel}>Ver detalhes</span> <ChevronRight size={14} />
                         </Link>
                       </div>
                     </td>

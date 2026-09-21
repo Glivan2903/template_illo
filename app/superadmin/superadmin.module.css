@@ -23,10 +23,18 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  min-width: 0;
+  max-width: 100%;
   font-size: 0.8rem;
   color: var(--brand-primary, #2b7a3e);
   text-decoration: none;
   font-weight: 600;
+}
+
+.cardLink span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardLink:hover {
@@ -70,6 +78,25 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.cardHeadInfo > div {
+  min-width: 0;
+}
+
+/* Cabeçalho da empresa (nome + link + excluir) — o botão de excluir nunca
+   pode "cair" pra uma linha própria: com flex-wrap normal, esse layout fica
+   bem na borda (cabe por menos de 1px em telas estreitas) e o navegador
+   arredonda pro lado errado, empurrando o botão sozinho pra segunda linha
+   em vez de deixar o texto encolher/truncar, que é o que .cardHeadInfo já
+   faz. Fixando nowrap aqui, sem mexer no .cardHead genérico (usado também
+   no painel de "empresa criada", onde um nome bem longo pode legitimamente
+   precisar de duas linhas).
+   */
+.empresaCardHead {
+  flex-wrap: nowrap;
 }
 
 .credRow {
@@ -246,4 +273,19 @@
 .copyIconBtn:hover {
   background: color-mix(in srgb, var(--brand-primary, #2b7a3e) 10%, white);
   color: var(--brand-primary, #2b7a3e);
+}
+
+/* Em telas estreitas, esconde a coluna menos essencial da tabela de
+   empresas (o nome + ações continuam visíveis sem precisar rolar) — dado
+   ainda disponível dentro do detalhe da empresa. */
+@media (max-width: 640px) {
+  .colDominio {
+    display: none;
+  }
+
+  /* A linha inteira já navega pro detalhe (ver EmpresasList onClick) — o
+     texto vira redundante nessa largura, só o ícone basta. */
+  .detalhesLabel {
+    display: none;
+  }
 }
